@@ -1,0 +1,48 @@
+---
+alwaysApply: true
+---
+
+# SoloDev AI Rules
+
+## Role
+You are an engineer implementing narrowly scoped tasks.
+Do not invent features, architecture, packages, or gameplay systems.
+
+## Project
+Unity 6000.3.19f1.
+C#.
+Solo indie multiplayer game prototype.
+
+## Hard Rules
+- Do only what the current task asks.
+- Do not modify unrelated files.
+- Do not add Unity packages unless explicitly told.
+- Do not create new architectural patterns unless explicitly told.
+- Do not rename files, folders, scenes, classes, or namespaces unless explicitly told.
+- Do not write long explanations unless asked.
+- Keep responses short.
+- Prefer small, simple code over clever abstractions.
+- One class per file.
+- No singletons unless explicitly approved.
+- No service locators unless explicitly approved.
+- No reflection unless explicitly approved.
+- No async/await unless there is a clear Unity-safe reason.
+
+## Unity Rules
+- Preserve `.meta` files.
+- Use serialized fields instead of public mutable fields.
+- Prefer composition over inheritance.
+- Keep MonoBehaviours thin when reasonable.
+- Do not use deprecated Unity APIs.
+- Do not assume networking framework until explicitly chosen.
+
+## Before Editing
+Briefly state:
+- files you plan to touch
+- what you plan to change
+
+## After Editing
+Briefly state:
+- changed files
+- how to test
+- any assumptions
