@@ -2,47 +2,241 @@
 alwaysApply: true
 ---
 
-# SoloDev AI Rules
+# Technical Direction
 
-## Role
-You are an engineer implementing narrowly scoped tasks.
-Do not invent features, architecture, packages, or gameplay systems.
+## Current Goal
 
-## Project
-Unity 6000.3.19f1.
-C#.
-Solo indie multiplayer game prototype.
+Build a small vertical slice first, not the full game.
 
-## Hard Rules
-- Do only what the current task asks.
-- Do not modify unrelated files.
-- Do not add Unity packages unless explicitly told.
-- Do not create new architectural patterns unless explicitly told.
-- Do not rename files, folders, scenes, classes, or namespaces unless explicitly told.
-- Do not write long explanations unless asked.
-- Keep responses short.
-- Prefer small, simple code over clever abstractions.
+The first playable target is:
+- One player
+- One small test location
+- Third-person movement
+- Simple interaction
+- Daylight timer
+- Return-to-base pressure
+- One basic enemy/threat later
+- No multiplayer until the offline loop feels good
+
+Do not implement future systems early unless the current task explicitly asks for them.
+
+## Engine
+
+- Unity 6000.3.19f1.
+- Use C#.
+- Use GameObjects and MonoBehaviours.
+- Do not use DOTS/ECS.
+- Do not use custom engine-level frameworks.
+
+## Rendering
+
+- Use URP.
+- Target stylized low-poly visuals.
+- Prioritize readability, lighting, fog, silhouettes and atmosphere over realism.
+- Do not add visual effects packages unless explicitly approved.
+
+## Input
+
+- Use Unity's New Input System.
+- Do not use legacy `Input.GetKey` / `Input.GetAxis` for gameplay.
+- Input should be routed through a small input layer, not scattered across gameplay scripts.
+- Gameplay scripts should consume intent/actions, not raw key checks.
+
+## Player Controller
+
+- Start with a simple third-person controller.
+- Prefer CharacterController for the first prototype.
+- Avoid Rigidbody-based player movement unless explicitly approved.
+- Movement should be readable and easy to tune.
+- Do not implement advanced movement like vaulting, climbing, sliding or parkour unless explicitly requested.
+
+## Camera
+
+- Use Cinemachine if installed/approved.
+- Third-person follow camera.
+- Keep camera logic separate from player movement.
+- Do not build complex camera systems early.
+
+## Interaction System
+
+- Use a simple interface-based interaction system.
+- Prefer an `IInteractable` style approach.
+- Player detects nearby interactables.
+- UI prompt can be added later.
+- Interactions should support time costs eventually, but do not build a complex time system until requested.
+
+## Time System
+
+- Time is a core game resource.
+- Build time as a central service/system when requested.
+- Other systems should ask the time system to spend/advance time rather than each system managing its own clocks.
+- Day/night state should eventually be centralized.
+- Do not hardcode day/night logic inside unrelated scripts.
+
+## Event System
+
+- Prefer plain C# events or UnityEvents for small local cases.
+- For global game events, create a simple explicit event/message layer only when needed.
+- Do not add a large event bus framework early.
+- Do not create generic abstract event architecture before there are real use cases.
+
+## World Events
+
+- The world should use persistent state, not regenerated layouts.
+- Locations remain fixed.
+- Events change location state.
+- Examples: fire, flood, bandit occupation, looted state, blocked road, infected presence.
+- Do not implement procedural world generation unless explicitly requested.
+- Procedural encounters/events are preferred over procedural maps.
+
+## Encounter System
+
+- Encounters should be data-driven eventually.
+- Start simple.
+- A location can have a current encounter/state.
+- Encounters should create decisions, not just spawn loot.
+- Do not build a full encounter director until a few handcrafted encounters exist.
+
+## Persistence
+
+- The world should eventually remember changes.
+- Start with in-memory state for prototypes.
+- Add save/load only when there is something worth saving.
+- When save/load is added, prefer simple JSON or Unity-serializable data first.
+- Do not add databases.
+
+## Inventory
+
+- Do not build a full inventory until requested.
+- Start with simple resource counters or picked-up items.
+- Avoid complex grids, item rarity, item affixes, durability and RPG loot systems.
+- Items should feel grounded and functional.
+- No common/rare/epic/legendary loot.
+
+## Combat
+
+- Combat should be simple to execute but expensive to choose.
+- Initial combat should be basic and readable.
+- Avoid complex ballistics, armor, limb damage or deep medical systems.
+- Basic health, damage, bleeding/bandage-type healing is enough when requested.
+- Ammo/noise/time cost matter more than mechanical complexity.
+
+## AI / Enemies
+
+- Start with one simple enemy type when requested.
+- Prefer simple state machines.
+- Avoid behavior trees unless complexity demands it.
+- Enemy AI should prioritize clarity over realism.
+- Night enemies should feel more dangerous because rules change, not because stats are inflated.
+
+## Noise System
+
+- Noise is an important future mechanic.
+- Gunshots, generators, vehicles and tools may create noise.
+- Do not build it until requested.
+- When added, keep it simple: source, radius, intensity, duration.
+
+## Base System
+
+- Base is an apartment/building that expands functionally.
+- Rooms/apartments can become workshops, kitchens, medical rooms, storage, generator rooms, UV defense rooms, etc.
+- Base upgrades should be functional first.
+- Do not build decoration/custom placement systems early.
+- Avoid Fallout-style settlement building until core gameplay works.
+
+## Crafting
+
+- Crafting should be simple and functional.
+- No giant recipe trees early.
+- Crafting stations can unlock specific actions.
+- Start with direct recipes only when requested.
+
+## UI
+
+- Keep UI minimal.
+- Use UI Toolkit or uGUI consistently once chosen.
+- Do not mix UI frameworks without approval.
+- Early prototype UI can be ugly.
+- Prioritize debug clarity over polish.
+
+## Multiplayer
+
+- Do not implement multiplayer until the offline loop is fun.
+- Do not add Netcode, Photon or Steam networking unless explicitly approved.
+- Architect gameplay code so multiplayer can be added later:
+  - avoid hard dependencies on local-only assumptions where easy
+  - keep gameplay logic separated from input where reasonable
+  - avoid static global state for player-specific data
+
+## Audio
+
+- Audio is important for atmosphere.
+- Add audio hooks only when requested.
+- Prioritize simple one-shot sounds and ambience first.
+- Night should eventually be communicated strongly through sound.
+
+## Scenes
+
+- Keep scene count low.
+- Current scene: `Main`.
+- Do not create extra scenes unless explicitly requested.
+- Use test objects/prefabs in the main scene during early prototyping.
+
+## Folder Structure
+
+Use this structure unless explicitly changed:
+
+Assets/
+  Art/
+  Audio/
+  Materials/
+  Models/
+  Prefabs/
+  Scenes/
+  Scripts/
+    Core/
+    Gameplay/
+    Input/
+    Interaction/
+    Time/
+    World/
+    UI/
+    Utilities/
+  ScriptableObjects/
+  Settings/
+  Tests/
+
+Do not create new top-level folders without approval.
+
+## Code Style
+
 - One class per file.
-- No singletons unless explicitly approved.
-- No service locators unless explicitly approved.
-- No reflection unless explicitly approved.
-- No async/await unless there is a clear Unity-safe reason.
+- Names should be clear and boring.
+- Prefer explicit dependencies.
+- Avoid clever abstractions.
+- Keep MonoBehaviours small when reasonable.
+- Prefer serialized private fields:
+  `[SerializeField] private float moveSpeed;`
+- Avoid public mutable fields.
+- Avoid magic numbers in logic.
+- Add comments only when they explain why, not what.
 
-## Unity Rules
-- Preserve `.meta` files.
-- Use serialized fields instead of public mutable fields.
-- Prefer composition over inheritance.
-- Keep MonoBehaviours thin when reasonable.
-- Do not use deprecated Unity APIs.
-- Do not assume networking framework until explicitly chosen.
+## Testing / Validation
 
-## Before Editing
-Briefly state:
-- files you plan to touch
-- what you plan to change
+After changes, always explain:
+- how to test in Unity
+- expected behavior
+- files changed
 
-## After Editing
-Briefly state:
-- changed files
-- how to test
-- any assumptions
+If possible, keep changes compile-safe.
+
+## Cost / Token Discipline
+
+- Be concise.
+- Do not restate the whole architecture.
+- Do not summarize unrelated files.
+- Do not inspect the whole project unless necessary.
+- Prefer editing the smallest number of files.
+- Ask before broad refactors.
+- Ask before adding packages.
+- Ask before generating large systems.

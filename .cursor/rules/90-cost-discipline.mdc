@@ -1,0 +1,8 @@
+---
+description: Minimize unnecessary token usage and repo exploration.
+alwaysApply: true
+---
+
+# Cost Discipline
+
+Read only the files needed for the current task. Modify the fewest files possible. Do not inspect the whole repository unless required. Do not explain obvious code. Do not summarize unchanged code. Do not perform broad refactors unless requested. Do not generate future systems, abstractions or frameworks unless requested. Ask before installing packages, changing architecture, moving folders or renaming multiple files. Prefer extending existing code over rewriting it. Avoid premature optimization and unnecessary abstractions.

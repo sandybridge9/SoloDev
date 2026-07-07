@@ -1,0 +1,29 @@
+---
+description: Unity conventions.
+globs:
+  - Assets/**/*.cs
+---
+
+# Unity
+
+Unity 6000.3.19f1. Use GameObjects, MonoBehaviours and URP. Never use DOTS, ECS or custom engine frameworks.
+
+Use Unity New Input System. Never use the legacy Input Manager.
+
+Prefer CharacterController. Avoid Rigidbody player movement unless requested.
+
+Use Cinemachine when available. Keep camera separate from movement.
+
+Prefer interface-based interactions (IInteractable). Avoid large interaction frameworks.
+
+Keep time centralized. Systems must not manage independent clocks.
+
+Prefer C# events. Use UnityEvents only for inspector wiring. Do not introduce generic event buses prematurely.
+
+Prefer simple serialization. Avoid databases.
+
+Keep combat simple. Avoid limb damage, complex armor and deep medical simulation.
+
+Prefer simple state machines. Avoid behavior trees until necessary.
+
+Keep crafting simple. Keep UI minimal. Keep scene count low.

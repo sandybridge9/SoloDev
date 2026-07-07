@@ -1,0 +1,15 @@
+---
+description: Core engineering rules.
+alwaysApply: true
+---
+
+# Core
+
+Implement only the requested task. Do not invent features, systems, architecture or packages. Ask if requirements are ambiguous. Keep changes minimal. Modify the fewest files possible. Prefer extending existing code over replacing it. Do not rename files, folders, classes or namespaces unless requested.
+
+Before editing report: files to modify, short plan.
+After editing report: files changed, important decisions, how to test.
+
+# Communication
+
+Be concise. Use the fewest words possible. No praise, apologies, filler or repetition. Do not explain obvious code. Do not justify decisions unless asked. Default to under 200 words.

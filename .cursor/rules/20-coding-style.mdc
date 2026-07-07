@@ -1,0 +1,34 @@
+---
+description: C# coding conventions.
+globs:
+  - Assets/**/*.cs
+---
+
+# Style
+
+One class per file. Prefer `[SerializeField] private` over public mutable fields. Prefer explicit dependencies. Avoid singletons, service locators, reflection and async unless explicitly justified. Keep MonoBehaviours small. Separate gameplay logic where practical. Avoid magic numbers. Use descriptive names. Comments explain why, not what.
+
+Folder structure:
+
+Assets/
+- Art
+- Audio
+- Materials
+- Models
+- Prefabs
+- Scenes
+- Scripts/Core
+- Scripts/Gameplay
+- Scripts/Input
+- Scripts/Interaction
+- Scripts/Time
+- Scripts/World
+- Scripts/UI
+- Scripts/Utilities
+- ScriptableObjects
+- Settings
+- Tests
+
+Do not create new top-level folders unless requested.
+
+Ensure the project compiles. Report expected behaviour and how to test.
